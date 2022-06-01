@@ -1,6 +1,9 @@
 # Family Feud Game
 A work-in-progress configurable board to play a Family Feud game!
 
+## Setup the game
+Copy the `game-sample.json` over to `game.json`. This step will need to happen before running the application
+
 ## Running the application
 ### `npm start`
 
