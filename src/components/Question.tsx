@@ -15,10 +15,10 @@ export const Question: React.FC<QuestionProps> = ({ question, timerLengthSeconds
 
   return (
     <div className="question-screen">
-      <Title>{ question }</Title>
       <div className="question-timer">
         <Countdown value={timerDeadline} onFinish={onTimerEnd} format="mm:ss" />
       </div>
+      <Title>{ question }</Title>
     </div>
   );
 };

@@ -31,11 +31,17 @@ function App() {
   const isLastQuestion = currentQuestion >= lastQuestionIndex;
   const questionSet = gameSettings.questions;
 
-  const handleAnswerReveal = useCallback((answerIndex: number) => {
+  const handleAnswerReveal = useCallback((answerIndex: number, hide: boolean = false) => {
+    console.log("score", score);
+    console.log("new score", score + answerSet[answerIndex].points);
+
     const newAnswerSet = [...answerSet];
-    newAnswerSet[answerIndex].revealed = true;
+    newAnswerSet[answerIndex].revealed = !hide;
     setAnswerSet(newAnswerSet);
-    setScore(score + newAnswerSet[answerIndex].points);
+    setScore(hide === false
+      ? score + newAnswerSet[answerIndex].points
+      : score - newAnswerSet[answerIndex].points
+    );
   }, [answerSet, score]);
 
   const handleRevealAllAnswers = useCallback(() => {
@@ -52,6 +58,16 @@ function App() {
   const handleTimerEnd = useCallback(() => {
     setQuestionTimerActive(false);
   }, []);
+
+  const handleIncorrectGuess = useCallback(() => {
+    setIncorrectResponses(incorrectResponses + 1);
+  }, [incorrectResponses]);
+
+  const handleRemoveIncorrectGuess = useCallback(() => {
+    if (incorrectResponses > 0) {
+      setIncorrectResponses(incorrectResponses - 1);
+    }
+  }, [incorrectResponses]);
 
   useEffect(() => {
     setAnswerSet([...gameSettings.questions[currentQuestion].answers]);
@@ -76,7 +92,7 @@ function App() {
             <ActionMenu
               lastQuestion={isLastQuestion}
               onNextQuestion={handleNextQuestion} 
-              onIncorrectGuess={() => setIncorrectResponses(incorrectResponses + 1)}
+              onIncorrectGuess={handleIncorrectGuess}
               onRevealAllAnswers={handleRevealAllAnswers}
             /> 
             <AnswerBoard
@@ -85,6 +101,7 @@ function App() {
               answerList={answerSet}
               incorrectGuesses={incorrectResponses}
               onRevealAnswer={handleAnswerReveal}
+              onRemoveIncorrectGuess={handleRemoveIncorrectGuess}
             />
             
           </>
