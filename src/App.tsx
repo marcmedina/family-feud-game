@@ -7,6 +7,8 @@ import { AnswerBoard } from './components/AnswerBoard';
 import { ActionMenu } from './components/ActionMenu';
 import { Question } from './components/Question';
 
+import video from "./background.mp4";
+
 export interface GameBoardState {
   currentQuestion: number;
   score: number;
@@ -82,11 +84,21 @@ function App() {
       { gameStarted 
         ?
           <>
-            {questionTimerActive && 
-              <Question 
+            {questionTimerActive
+              ? 
+                <Question 
+                  question={questionSet[currentQuestion].question}
+                  timerLengthSeconds={gameSettings.questionTimerSeconds}
+                  onTimerEnd={handleTimerEnd}
+                />
+              :
+              <AnswerBoard
+                score={score}
                 question={questionSet[currentQuestion].question}
-                timerLengthSeconds={gameSettings.questionTimerSeconds}
-                onTimerEnd={handleTimerEnd}
+                answerList={answerSet}
+                incorrectGuesses={incorrectResponses}
+                onRevealAnswer={handleAnswerReveal}
+                onRemoveIncorrectGuess={handleRemoveIncorrectGuess}
               />
             }
             <ActionMenu
@@ -95,15 +107,6 @@ function App() {
               onIncorrectGuess={handleIncorrectGuess}
               onRevealAllAnswers={handleRevealAllAnswers}
             /> 
-            <AnswerBoard
-              score={score}
-              question={questionSet[currentQuestion].question}
-              answerList={answerSet}
-              incorrectGuesses={incorrectResponses}
-              onRevealAnswer={handleAnswerReveal}
-              onRemoveIncorrectGuess={handleRemoveIncorrectGuess}
-            />
-            
           </>
           
         : <header className="App-header">
@@ -111,7 +114,9 @@ function App() {
             <a onClick={() => setGameStarted(true)}>Start Game</a> 
           </header>
       }
-    
+      <video autoPlay muted loop className="background-video">
+        <source src={video} type="video/mp4" />
+      </video>                     
     </div>
   );
 }

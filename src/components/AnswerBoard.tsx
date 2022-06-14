@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { Button, Statistic } from "antd";
 import { CloseOutlined } from '@ant-design/icons';
 import { AnswerListItem } from "../App";
+import correct from "../correct.wav";
 
 interface AnswerBoardProps {
   question: string;
@@ -43,6 +44,9 @@ export const AnswerBoard: React.FC<AnswerBoardProps> = ({ question, answerList, 
 
 const AnswerCard: React.FC<AnswerItem> = ({ answer, revealed, points, onRevealAnswer, index}) => {
   const toggleReveal = useCallback(() => {
+    const revealSound = new Audio(correct);
+    revealSound.volume = .5;
+    revealSound.play();
     onRevealAnswer(index, false);
   }, [index, onRevealAnswer]);
 

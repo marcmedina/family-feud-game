@@ -1,5 +1,9 @@
 @import '~antd/dist/antd.less';
 
+body {
+  background-color: #020f2b;
+}
+
 .App {
   text-align: center;
   background-color: #020f2b;
@@ -13,6 +17,8 @@
 }
 
 .App-header {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -32,7 +38,7 @@
 
 .action-menu {
   position: absolute;
-  z-index: 2;
+  z-index: 10;
   width: 100vw;
   display: flex;
   flex-direction: row;
@@ -50,8 +56,8 @@
   position: fixed;
   z-index: 1;
   min-height: 100vh;
+  background-color: transparent;
   width: 100vw;
-  background-color: #020f2b;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -91,6 +97,8 @@
 }
 
 .answer-board {
+  position: fixed;
+  z-index: 1;
   min-height: 100vh;
   display: flex;
   flex-direction: row;
@@ -172,4 +180,14 @@
   border-radius: 50%;
   background-color: rgb(9,9,121);
   padding: 0px 20px;
+}
+
+.background-video {
+  opacity: .2;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: 0;
 }
