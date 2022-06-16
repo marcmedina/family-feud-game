@@ -89,6 +89,7 @@ function App() {
                 <Question 
                   question={questionSet[currentQuestion].question}
                   timerLengthSeconds={gameSettings.questionTimerSeconds}
+                  timerDelaySeconds={gameSettings.questionTimerDelaySeconds}
                   onTimerEnd={handleTimerEnd}
                 />
               :

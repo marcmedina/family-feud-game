@@ -1,5 +1,6 @@
 {
   "questionTimerSeconds": 180,
+  "questionTimerDelaySeconds": 10,
   "questions": [
     {
       "question": "Something you take to the beach",
